@@ -1,0 +1,28 @@
+digraph pipeline {
+  graph [rankdir=LR, fontname="Inter", fontsize=13, pad=0.3, nodesep=0.35, ranksep=0.45,
+         label="Mini-Lang compiler pipeline  (each phase stops the build if it reports errors)",
+         labelloc=b, fontcolor="#555555"];
+  node  [fontname="Inter", fontsize=12, shape=box, style="rounded,filled", penwidth=1.2];
+  edge  [fontname="Inter", fontsize=10, color="#666666", fontcolor="#444444", arrowsize=0.7];
+
+  src  [label="program.src\nsource text", shape=note, fillcolor="#F2F2F2", color="#999999"];
+
+  lex  [label="1. Scanner\nsrc/lexer\nregex rules,\nlongest match", fillcolor="#DCEBFA", color="#3B7DD8"];
+  par  [label="2. Parser\nsrc/parser\nrecursive descent\nLL(1) CFG", fillcolor="#DCEBFA", color="#3B7DD8"];
+  sem  [label="3. Semantic analyzer\nsrc/semantics\nscopes, symbol table,\ntype rules R1-R4", fillcolor="#DCEBFA", color="#3B7DD8"];
+  gen  [label="4. TAC generator\nsrc/ir\ntemps, labels,\nshort-circuit", fillcolor="#E3F4E1", color="#3E9B4F"];
+  vm   [label="5. TAC interpreter\nsrc/runtime\npc + memory,\nrun-time checks", fillcolor="#E3F4E1", color="#3E9B4F"];
+  out  [label="output.txt\nprogram output", shape=note, fillcolor="#F2F2F2", color="#999999"];
+
+  src -> lex;
+  lex -> par [label="tokens\n(tokens.json)"];
+  par -> sem [label="AST\n(ast.json)"];
+  sem -> gen [label="annotated AST +\nsymbol table\n(semantic.json)"];
+  gen -> vm  [label="TAC\n(program.tac)"];
+  vm  -> out;
+
+  diag [label="Diagnostics\nphase · line:col · message · hint", shape=box, style="rounded,dashed,filled",
+        fillcolor="#FDECEA", color="#D9534F", fontcolor="#7A1F1B"];
+  {lex par sem vm} -> diag [style=dashed, color="#D9534F", arrowhead=vee, constraint=false];
+  {rank=same; sem; diag}
+}

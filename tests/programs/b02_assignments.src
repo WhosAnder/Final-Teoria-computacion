@@ -1,0 +1,19 @@
+// TEST: assignments, copies and re-assignment of variables
+int x;
+int y;
+int z;
+bool p;
+bool q;
+
+x = 3;
+y = x + 4;      // spec example: x = 3 + y style assignment
+z = y;
+x = 10;         // re-assignment does not affect z
+print(x);       // 10
+print(y);       // 7
+print(z);       // 7
+p = false;
+q = !p;
+p = q;
+print(p);       // true
+print(q);       // true

@@ -1,0 +1,9 @@
+// TEST: semantic error - undeclared identifiers (including one out of scope)
+int x;
+x = 1;
+y = x + 2;          // error: y is not declared
+{
+    int inner;
+    inner = 5;
+}
+print(inner);       // error: inner is out of scope here

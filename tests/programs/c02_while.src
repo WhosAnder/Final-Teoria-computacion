@@ -1,0 +1,20 @@
+// TEST: while loops - accumulate a sum and count down
+int i;
+int sum;
+i = 1;
+sum = 0;
+while (i <= 10) {
+    sum = sum + i;
+    i = i + 1;
+}
+print(sum);         // 55
+
+while (i > 7) {
+    i = i - 1;
+    print(i);       // 10, 9, 8, 7
+}
+
+while (false) {
+    print(-1);      // never printed
+}
+print(i);           // 7

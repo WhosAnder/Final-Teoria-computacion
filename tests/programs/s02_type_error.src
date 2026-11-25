@@ -1,0 +1,9 @@
+// TEST: semantic error - type mismatches (assignment, operator and condition)
+int n;
+bool b;
+n = true;           // error: bool assigned to int
+b = n + 1;          // error: int assigned to bool
+n = b * 2;          // error: '*' needs int operands
+while (n) {         // error: condition must be bool
+    n = n - 1;
+}

@@ -1,0 +1,24 @@
+// TEST: integration - prime numbers below 30 (nested loops, %, bool flags, &&)
+int n;
+int d;
+bool prime;
+int count;
+
+n = 2;
+count = 0;
+while (n < 30) {
+    prime = true;
+    d = 2;
+    while (d * d <= n && prime) {
+        if (n % d == 0) {
+            prime = false;
+        }
+        d = d + 1;
+    }
+    if (prime) {
+        print(n);
+        count = count + 1;
+    }
+    n = n + 1;
+}
+print(count);       // 10 primes: 2 3 5 7 11 13 17 19 23 29

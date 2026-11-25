@@ -1,0 +1,54 @@
+/* TEST: integration - a longer program combining every feature:
+   Fibonacci, Euclid's GCD, Collatz steps, nested scopes with shadowing. */
+int a;
+int b;
+int tmp;
+int i;
+int steps;
+bool even;
+
+// 1. First 8 Fibonacci numbers: 0 1 1 2 3 5 8 13
+a = 0;
+b = 1;
+i = 0;
+while (i < 8) {
+    print(a);
+    tmp = a + b;
+    a = b;
+    b = tmp;
+    i = i + 1;
+}
+
+// 2. gcd(84, 36) = 12 with Euclid's algorithm
+a = 84;
+b = 36;
+while (b != 0) {
+    tmp = a % b;
+    a = b;
+    b = tmp;
+}
+print(a);               // 12
+
+// 3. Collatz steps for 6: 6 3 10 5 16 8 4 2 1 -> 8 steps
+a = 6;
+steps = 0;
+while (a != 1) {
+    even = a % 2 == 0;
+    if (even) { a = a / 2; } else { a = 3 * a + 1; }
+    steps = steps + 1;
+}
+print(steps);           // 8
+
+// 4. Scopes: the inner 'i' shadows the outer one
+i = 1;
+{
+    int i;
+    i = 100;
+    {
+        bool i;
+        i = true;
+        print(i);       // true
+    }
+    print(i);           // 100
+}
+print(i);               // 1

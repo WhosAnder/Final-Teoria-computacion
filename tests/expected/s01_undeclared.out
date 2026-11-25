@@ -1,0 +1,2 @@
+4:1: semantic error: variable 'y' is not declared
+9:7: semantic error: variable 'inner' is not declared

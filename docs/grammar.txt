@@ -1,0 +1,47 @@
+# Context-free grammar of Mini-Lang
+#
+# - Non-terminals: lowercase names (those on the left of →).
+# - Terminals: token kinds (IDENTIFIER, NUMBER) and literal symbols.
+# - ε is the empty string; EOF is the end-of-input token.
+# - No left recursion and left-factored, so the grammar is LL(1).
+#   Verify with:  python scripts/ll1_check.py docs/grammar.txt --table
+#
+# Operator precedence is encoded by the chain
+#   or_expr < and_expr < eq_expr < rel_expr < add_expr < mul_expr < unary
+# and left associativity by the right-recursive *_tail productions
+# (the parser builds the tree left-to-right while consuming each tail).
+
+program     → stmt_list EOF
+
+stmt_list   → stmt stmt_list | ε
+stmt        → declaration | assignment | while_stmt | if_stmt | print_stmt | block
+
+declaration → type IDENTIFIER ;
+type        → int | bool
+assignment  → IDENTIFIER = expression ;
+while_stmt  → while ( expression ) block
+if_stmt     → if ( expression ) block else_part
+else_part   → else else_body | ε
+else_body   → block | if_stmt
+print_stmt  → print ( expression ) ;
+block       → { stmt_list }
+
+expression  → or_expr
+or_expr     → and_expr or_tail
+or_tail     → || and_expr or_tail | ε
+and_expr    → eq_expr and_tail
+and_tail    → && eq_expr and_tail | ε
+eq_expr     → rel_expr eq_tail
+eq_tail     → eq_op rel_expr eq_tail | ε
+eq_op       → == | !=
+rel_expr    → add_expr rel_tail
+rel_tail    → rel_op add_expr rel_tail | ε
+rel_op      → < | <= | > | >=
+add_expr    → mul_expr add_tail
+add_tail    → add_op mul_expr add_tail | ε
+add_op      → + | -
+mul_expr    → unary mul_tail
+mul_tail    → mul_op unary mul_tail | ε
+mul_op      → * | / | %
+unary       → ! unary | - unary | primary
+primary     → NUMBER | true | false | IDENTIFIER | ( expression )

@@ -1,0 +1,19 @@
+int x;
+int sum;
+bool ok;
+
+x = 1;
+sum = 0;
+
+while (x <= 3) {
+  sum = sum + x;
+  x = x + 1;
+}
+
+ok = sum == 6;
+
+if (ok) {
+   print(sum);
+} else {
+   print(0);
+}

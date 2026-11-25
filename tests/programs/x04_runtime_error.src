@@ -1,0 +1,7 @@
+// TEST: extra negative - division by zero detected by the TAC interpreter at run time
+int a;
+int b;
+a = 10;
+b = 0;
+print(a);           // 10 is printed before the error
+print(a / b);       // runtime error

@@ -1,0 +1,25 @@
+digraph pipeline {
+  graph [rankdir=TB, fontname="Inter", pad=0.15, nodesep=0.55, ranksep=0.7, newrank=true];
+  node  [fontname="Inter", fontsize=12, shape=box, style="rounded,filled", penwidth=1.2, width=1.9, height=0.9];
+  edge  [fontname="Inter", fontsize=10, color="#666666", fontcolor="#444444", arrowsize=0.7];
+  src  [label="program.src\nsource text", shape=note, fillcolor="#F2F2F2", color="#999999", width=1.4];
+  lex  [label="1. Scanner\nsrc/lexer\nregex rules, longest match", fillcolor="#DCEBFA", color="#3B7DD8"];
+  par  [label="2. Parser\nsrc/parser\nrecursive descent, LL(1)", fillcolor="#DCEBFA", color="#3B7DD8"];
+  sem  [label="3. Semantic analyzer\nsrc/semantics\nscopes, symbol table, R1-R4", fillcolor="#DCEBFA", color="#3B7DD8"];
+  gen  [label="4. TAC generator\nsrc/ir\ntemps, labels, short-circuit", fillcolor="#E3F4E1", color="#3E9B4F"];
+  vm   [label="5. TAC interpreter\nsrc/runtime\npc + memory, run-time checks", fillcolor="#E3F4E1", color="#3E9B4F"];
+  out  [label="output.txt\nprogram output", shape=note, fillcolor="#F2F2F2", color="#999999", width=1.4];
+  diag [label="Diagnostics:  phase · line:col · message · hint", style="rounded,dashed,filled",
+        fillcolor="#FDECEA", color="#D9534F", fontcolor="#7A1F1B", width=4, height=0.45];
+  {rank=same; src; lex; par; sem}
+  {rank=same; out; vm; gen}
+  src -> lex;
+  lex -> par [label="  tokens  \n  tokens.json  "];
+  par -> sem [label="  AST  \n  ast.json  "];
+  sem -> gen [label="  annotated AST + symbol table\l  semantic.json\l"];
+  gen -> vm  [label="  TAC  \n  program.tac  "];
+  vm -> out;
+  edge [style=dashed, color="#D9534F", arrowhead=vee];
+  gen -> diag [style=invis];
+  lex -> diag [constraint=false]; par -> diag [constraint=false]; sem -> diag [constraint=false]; vm -> diag;
+}

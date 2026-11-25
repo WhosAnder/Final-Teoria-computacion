@@ -1,0 +1,4 @@
+4:1: semantic error: type mismatch: cannot assign a bool value to 'n' of type int
+5:1: semantic error: type mismatch: cannot assign an int value to 'b' of type bool
+6:7: semantic error: operator '*' expects int operands, but the left side is bool
+7:8: semantic error: while condition must be bool, but it is int

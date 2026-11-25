@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Unit tests
+        run: python -m unittest discover -s tests/unit -v
+      - name: End-to-end tests
+        run: python scripts/run_tests.py -v
+      - name: Grammar is LL(1)
+        run: python scripts/ll1_check.py docs/grammar.txt
+      - name: Demo pipeline
+        run: python scripts/minilangc.py examples/pdf_example.src -o build/demo

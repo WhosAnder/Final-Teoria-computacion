@@ -1,0 +1,11 @@
+// TEST: arithmetic operators, precedence, associativity, unary minus, truncating division
+int r;
+r = 2 + 3 * 4;          print(r);   // 14  (* binds tighter than +)
+r = (2 + 3) * 4;        print(r);   // 20  (parentheses)
+r = 20 - 5 - 3;         print(r);   // 12  (left-assoc: (20-5)-3)
+r = 100 / 10 / 2;       print(r);   // 5   (left-assoc: (100/10)/2)
+r = 17 % 5;             print(r);   // 2
+r = -7 / 2;             print(r);   // -3  (truncates toward zero, like C)
+r = -7 % 2;             print(r);   // -1
+r = -(3 + 4) * 2;       print(r);   // -14
+r = 1 + 2 * 3 - 8 / 4 % 3;  print(r); // 5  (1 + 6 - ((8/4)%3) = 7 - 2)

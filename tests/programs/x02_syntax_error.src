@@ -1,0 +1,8 @@
+// TEST: extra negative - syntax errors; panic-mode recovery reports all of them
+int x;
+int y
+x = 10;
+while (x > 0 {
+    x = x - 1;
+}
+print(x;

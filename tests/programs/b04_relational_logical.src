@@ -1,0 +1,15 @@
+// TEST: relational, equality and logical operators producing bool values
+int a;
+int b;
+bool r;
+a = 4;
+b = 9;
+r = a < b;              print(r);   // true
+r = a >= b;             print(r);   // false
+r = a + 5 == b;         print(r);   // true  (+ binds tighter than ==)
+r = a != 4;             print(r);   // false
+r = a < b && b < 10;    print(r);   // true
+r = a > b || b == 9;    print(r);   // true
+r = !(a < b);           print(r);   // false
+r = true == (a <= 4);   print(r);   // true  (== on bools)
+r = a < b || a > b && false;  print(r);  // true (&& binds tighter than ||)

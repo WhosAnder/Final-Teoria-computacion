@@ -1,0 +1,3 @@
+3:6: syntax error: expected ';' after 'y'
+5:14: syntax error: expected ')' but found '{'
+8:8: syntax error: expected ')' but found ';'

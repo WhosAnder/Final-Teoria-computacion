@@ -1,0 +1,7 @@
+// TEST: extra negative - duplicate declaration in the same scope (shadowing in a block is legal)
+int x;
+bool x;             // error: duplicate in the same scope
+{
+    int x;          // OK: new scope (warning: shadows outer x)
+    x = 1;
+}

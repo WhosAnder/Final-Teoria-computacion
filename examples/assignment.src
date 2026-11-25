@@ -1,0 +1,5 @@
+int a;
+int x;
+a = 4;
+x = a + 3;
+print(x);

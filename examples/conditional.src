@@ -1,0 +1,7 @@
+int x;
+int y;
+int z;
+x = 2;
+y = 5;
+if (x < y) { z = 1; } else { z = 0; }
+print(z);

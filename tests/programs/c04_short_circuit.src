@@ -1,0 +1,23 @@
+// TEST: short-circuit && and || guard a division by zero; compound loop conditions
+int d;
+int n;
+bool ok;
+d = 0;
+n = 10;
+
+ok = d != 0 && n / d > 1;       // right side NOT evaluated
+print(ok);                      // false
+ok = d == 0 || n / d > 1;       // right side NOT evaluated
+print(ok);                      // true
+
+if (d != 0 && n / d > 1) {
+    print(1);
+} else {
+    print(0);                   // 0
+}
+
+// loop with a compound condition: stops when n reaches 4
+while (n > 0 && n != 4) {
+    n = n - 2;
+}
+print(n);                       // 4

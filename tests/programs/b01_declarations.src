@@ -1,0 +1,16 @@
+// TEST: declarations of int and bool variables and their default values
+int a;
+int b;
+bool flag;
+bool done;
+
+print(a);       // 0 (default value)
+print(flag);    // false (default value)
+a = 7;
+done = true;
+print(a);       // 7
+print(done);    // true
+b = a;
+flag = done;
+print(b);       // 7
+print(flag);    // true
